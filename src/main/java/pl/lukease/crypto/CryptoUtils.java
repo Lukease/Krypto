@@ -67,12 +67,11 @@ public class CryptoUtils {
     }
 
 
+
     public CryptoUtils(WebDriver driver) {
         this.driver = driver;
         this.jse = (JavascriptExecutor) driver;
-        getCryptoZondaInformation();
-        getCryptoBinanceInformation();
-        getEKursyWalutPlInformation();
+
     }
 }
 

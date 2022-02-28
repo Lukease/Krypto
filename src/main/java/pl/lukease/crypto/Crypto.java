@@ -3,11 +3,13 @@ package pl.lukease.crypto;
 import java.util.Objects;
 
 public class Crypto {
-    String name;
-    Double price;
-    Double priceChange;
-    Double wolumen;
-    String marketName;
+   private String name;
+   private Double price;
+   private Double priceChange;
+   private Double wolumen;
+   private String marketName;
+   private Double maxPriceToday;
+   private Double minPriceToday;
 
     public Crypto(String name, Double price, Double priceChange, Double wolumen, String marketName) {
         this.name = name;
@@ -15,6 +17,33 @@ public class Crypto {
         this.priceChange = priceChange;
         this.wolumen = wolumen;
         this.marketName = marketName;
+    }
+
+    public Crypto(String name, Double price, Double priceChange, Double wolumen, String marketName, Double maxPriceToday, Double minPriceToday) {
+        this.name = name;
+        this.price = price;
+        this.priceChange = priceChange;
+        this.wolumen = wolumen;
+        this.marketName = marketName;
+        this.maxPriceToday = maxPriceToday;
+        this.minPriceToday = minPriceToday;
+    }
+
+
+    public Double getMaxPriceToday() {
+        return maxPriceToday;
+    }
+
+    public void setMaxPriceToday(Double maxPriceToday) {
+        this.maxPriceToday = maxPriceToday;
+    }
+
+    public Double getMinPriceToday() {
+        return minPriceToday;
+    }
+
+    public void setMinPriceToday(Double minPriceToday) {
+        this.minPriceToday = minPriceToday;
     }
 
     public String getMarketName() {
@@ -25,10 +54,6 @@ public class Crypto {
         this.marketName = marketName;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, price);
-    }
 
     public String getName() {
         return name;
