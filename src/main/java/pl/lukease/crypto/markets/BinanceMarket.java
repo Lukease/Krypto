@@ -7,6 +7,7 @@ import pl.lukease.crypto.Crypto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BinanceMarket extends Market {
     public BinanceMarket() {
@@ -34,19 +35,27 @@ public class BinanceMarket extends Market {
     @Override
     public void getMaxMinPriceCrypto(WebDriver driver, String cryptoName) {
         driver.get("https://www.binance.com/pl/markets");
+        driver.findElement(By.id("markets_main_search")).clear();
         driver.findElement(By.id("markets_main_search")).sendKeys(cryptoName);
         driver.findElement(By.className("css-1mql1kh")).click();
-        ArrayList<String> currentTabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(currentTabs.get(1));
+
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
 
         List<WebElement> attribute = driver.findElements(By.xpath("//*[@id='__APP']/div/main/section/div/div[2]/div[2]/div[4]/div[2]/div"));
         Double maxPrice = Double.parseDouble(attribute.get(0).getText().split(" ")[2].replace(",", ""));
         Double minPrice = Double.parseDouble(attribute.get(2).getText().split(" ")[2].replace(",", ""));
 
 
+        Crypto cryptoData = getCryptoByName(cryptoName);
+        cryptoData.setMaxPriceToday(maxPrice);
+        cryptoData.setMinPriceToday(minPrice);
+
         System.out.println("Najwyższa cena 24h " + cryptoName + ":" + maxPrice);
         System.out.println("Najniższa cena 24h " + cryptoName + ":" + minPrice);
 
+        driver.close();
+        driver.switchTo().window(tabs.get(0));
     }
 
 }
