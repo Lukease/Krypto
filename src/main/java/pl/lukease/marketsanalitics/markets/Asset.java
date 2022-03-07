@@ -1,8 +1,7 @@
-package pl.lukease.crypto;
+package pl.lukease.marketsanalitics.markets;
 
-import java.util.Objects;
 
-public class Crypto {
+public class Asset {
    private String name;
    private Double price;
    private Double priceChange;
@@ -11,7 +10,7 @@ public class Crypto {
    private Double maxPriceToday;
    private Double minPriceToday;
 
-    public Crypto(String name, Double price, Double priceChange, Double wolumen, String marketName) {
+    public Asset(String name, Double price, Double priceChange, Double wolumen, String marketName) {
         this.name = name;
         this.price = price;
         this.priceChange = priceChange;
@@ -19,16 +18,8 @@ public class Crypto {
         this.marketName = marketName;
     }
 
-    public Crypto(String name, Double price, Double priceChange, Double wolumen, String marketName, Double maxPriceToday, Double minPriceToday) {
-        this.name = name;
-        this.price = price;
-        this.priceChange = priceChange;
-        this.wolumen = wolumen;
-        this.marketName = marketName;
-        this.maxPriceToday = maxPriceToday;
-        this.minPriceToday = minPriceToday;
+    public Asset() {
     }
-
 
     public Double getMaxPriceToday() {
         return maxPriceToday;

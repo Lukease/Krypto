@@ -1,9 +1,10 @@
-package pl.lukease.crypto.markets;
+package pl.lukease.marketsanalitics.markets.crypto;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pl.lukease.crypto.Crypto;
+import pl.lukease.marketsanalitics.markets.Asset;
+import pl.lukease.marketsanalitics.markets.Market;
 
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class EKursyWalutPlMarket extends Market {
     }
 
     @Override
-    public void getAllCryptoInfo(WebDriver driver) {
+    public void getAllAssetInfo(WebDriver driver) {
         driver.get("https://e-kursy-walut.pl/");
         List<WebElement> table = driver.findElements(By.xpath("//table[@data-id='crypto']/tbody/tr"));
         String marketName = "EKursyWalutPl";
@@ -26,11 +27,11 @@ public class EKursyWalutPlMarket extends Market {
             Double wolumen = Double.parseDouble(attribute.get(4).getText().split(" ")[0]);
             Double priceChange = Double.parseDouble(attribute.get(2).getText().split("%")[0]);
 
-            cryptoList.add(new Crypto(name, price, priceChange, wolumen, marketName));
+            assetList.add(new Asset(name, price, priceChange, wolumen, marketName));
         }
     }
 
     @Override
-    public void getMaxMinPriceCrypto(WebDriver driver, String cryptoName) {
+    public void getMaxMinPriceAsset(WebDriver driver, String assetName) {
     }
 }

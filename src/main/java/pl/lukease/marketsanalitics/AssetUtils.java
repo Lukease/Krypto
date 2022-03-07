@@ -1,23 +1,24 @@
-package pl.lukease.crypto;
+package pl.lukease.marketsanalitics;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pl.lukease.marketsanalitics.markets.Asset;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CryptoUtils {
+public class AssetUtils {
 
     private final JavascriptExecutor jse;
-    List<Crypto> binanceCrypto = new ArrayList<>();
-    List<Crypto> eKursyWalutPlCrypto = new ArrayList<>();
-    List<Crypto> zondaCrypto = new ArrayList<>();
+    List<Asset> binanceAsset = new ArrayList<>();
+    List<Asset> eKursyWalutPlAsset = new ArrayList<>();
+    List<Asset> zondaAsset = new ArrayList<>();
     WebDriver driver;
 
-    public void getCryptoZondaInformation() {
+    public void getAssetZondaInformation() {
         driver.get("https://zondaglobal.com/pl/kurs-walut");
         List<WebElement> table = driver.findElements(By.className("visible"));
         String marketName = "Zonda";
@@ -28,12 +29,12 @@ public class CryptoUtils {
             Double wolumen = Double.parseDouble(attribute.get(3).getText().split(" ")[0].replace(",", ""));
             Double priceChange = Double.parseDouble(attribute.get(4).getText().split("%")[0]);
 
-            zondaCrypto.add(new Crypto(name, price, priceChange, wolumen, marketName));
+            zondaAsset.add(new Asset(name, price, priceChange, wolumen, marketName));
         }
-        System.out.println(zondaCrypto);
+        System.out.println(zondaAsset);
     }
 
-    public void getCryptoBinanceInformation() {
+    public void getAssetBinanceInformation() {
         driver.get("https://www.binance.com/pl/markets");
         List<WebElement> table = driver.findElements(By.className("css-vlibs4"));
         String marketName = "Binance";
@@ -45,9 +46,9 @@ public class CryptoUtils {
             Double wolumen = Double.parseDouble(table.get(i).findElement(By.className("css-102bt5g")).getText().split("M")[0].replace(",", ".").replace(" ", ""));
             Double priceChange = Double.parseDouble(table.get(i).findElement(By.className("css-18yakpx")).getText().split("%")[0]);
 
-            binanceCrypto.add(new Crypto(name, price, priceChange, wolumen, marketName));
+            binanceAsset.add(new Asset(name, price, priceChange, wolumen, marketName));
         }
-        System.out.println(binanceCrypto);
+        System.out.println(binanceAsset);
     }
 
     public void getEKursyWalutPlInformation() {
@@ -61,14 +62,14 @@ public class CryptoUtils {
             Double wolumen = Double.parseDouble(attribute.get(4).getText().split(" ")[0]);
             Double priceChange = Double.parseDouble(attribute.get(2).getText().split("%")[0]);
 
-            eKursyWalutPlCrypto.add(new Crypto(name, price, priceChange, wolumen, marketName));
+            eKursyWalutPlAsset.add(new Asset(name, price, priceChange, wolumen, marketName));
         }
-        System.out.println(eKursyWalutPlCrypto);
+        System.out.println(eKursyWalutPlAsset);
     }
 
 
 
-    public CryptoUtils(WebDriver driver) {
+    public AssetUtils(WebDriver driver) {
         this.driver = driver;
         this.jse = (JavascriptExecutor) driver;
 
